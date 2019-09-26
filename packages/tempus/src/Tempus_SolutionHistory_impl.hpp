@@ -225,7 +225,7 @@ SolutionHistory<Scalar>::interpolateState(
 
 /** Initialize the working state */
 template<class Scalar>
-void SolutionHistory<Scalar>::initWorkingState()
+void SolutionHistory<Scalar>::initWorkingState(const bool reset_old_working_state)
 {
   TEMPUS_FUNC_TIME_MONITOR("Tempus::SolutionHistory::initWorkingState()");
   {
@@ -236,7 +236,13 @@ void SolutionHistory<Scalar>::initWorkingState()
 
     // If workingState_ has a valid pointer, we are still working on it,
     // i.e., step failed and trying again, so do not initialize it.
-    if (getWorkingState(false) != Teuchos::null) return;
+    // However, reset the value from failed step with the value of the
+    // current state (for the initial guess of next solve).
+    if (getWorkingState(false) != Teuchos::null) {
+      if (reset_old_working_state)
+        Thyra::assign( getWorkingState()->getX().ptr(), *(getCurrentState()->getX()) );
+      return;
+    }
 
     Teuchos::RCP<SolutionState<Scalar> > newState;
     if (getNumStates() < storageLimit_) {

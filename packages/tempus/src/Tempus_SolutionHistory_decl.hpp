@@ -162,7 +162,7 @@ public:
                           SolutionState<Scalar>* state_out) const;
 
     /// Initialize the working state
-    void initWorkingState();
+    void initWorkingState(const bool reset_old_working_state = false);
 
     /// Promote the working state to current state
     void promoteWorkingState();

@@ -438,7 +438,7 @@ bool IntegratorBasic<Scalar>::advanceTime()
 
       stepperTimer_->reset();
       stepperTimer_->start();
-      solutionHistory_->initWorkingState();
+      solutionHistory_->initWorkingState( stepper_->isImplicit() );
 
       startTimeStep();
       integratorObserver_->observeStartTimeStep(*this);
