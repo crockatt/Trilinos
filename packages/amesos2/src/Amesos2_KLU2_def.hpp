@@ -273,8 +273,8 @@ KLU2<Matrix,Vector>::numericFactorization_impl()
   /* All processes should have the same error code */
   Teuchos::broadcast(*(this->matrixA_->getComm()), 0, &info);
 
-  TEUCHOS_TEST_FOR_EXCEPTION(info > 0, std::runtime_error,
-      "KLU2 numeric factorization failed");
+//  TEUCHOS_TEST_FOR_EXCEPTION(info > 0, std::runtime_error,
+//      "KLU2 numeric factorization failed");
 
   //global_size_type info_st = as<global_size_type>(info); // unused
   /* TODO : Proper error messages
