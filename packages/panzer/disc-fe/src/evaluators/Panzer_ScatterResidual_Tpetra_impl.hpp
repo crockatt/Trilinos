@@ -382,9 +382,12 @@ public:
   KOKKOS_INLINE_FUNCTION
   void operator()(const unsigned int cell) const
   {
-    LO cLIDs[256];
-    typename Sacado::ScalarType<ScalarT>::type vals[256];
+    const size_t array_dim = 8192;
+    LO cLIDs[array_dim];
+    typename Sacado::ScalarType<ScalarT>::type vals[array_dim];
     int numIds = lids.extent(1);
+
+    TEUCHOS_ASSERT( numIds <= array_dim )
 
     for(int i=0;i<numIds;i++)
       cLIDs[i] = lids(cell,i);
