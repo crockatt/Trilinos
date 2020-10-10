@@ -363,9 +363,9 @@ Superlu<Matrix,Vector>::numericFactorization_impl()
   Teuchos::broadcast(*(this->matrixA_->getComm()), 0, &info);
 
   global_size_type info_st = as<global_size_type>(info);
-  TEUCHOS_TEST_FOR_EXCEPTION( (info_st > 0) && (info_st <= this->globalNumCols_),
-    std::runtime_error,
-    "Factorization complete, but matrix is singular. Division by zero eminent");
+//  TEUCHOS_TEST_FOR_EXCEPTION( (info_st > 0) && (info_st <= this->globalNumCols_),
+//    std::runtime_error,
+//    "Factorization complete, but matrix is singular. Division by zero eminent");
   TEUCHOS_TEST_FOR_EXCEPTION( (info_st > 0) && (info_st > this->globalNumCols_),
     std::runtime_error,
     "Memory allocation failure in Superlu factorization");
